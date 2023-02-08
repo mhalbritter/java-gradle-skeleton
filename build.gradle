@@ -1,0 +1,37 @@
+plugins {
+    id 'application'
+}
+
+group = 'de.mkammerer.java-gradle-skeleton'
+version = '1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClass = 'de.mkammerer.skeleton.Main'
+}
+
+dependencies {
+    implementation 'org.slf4j:slf4j-api:2.0.6'
+    runtimeOnly 'ch.qos.logback:logback-classic:1.4.5'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.deprecation = true
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['-Werror', '-parameters']
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}
